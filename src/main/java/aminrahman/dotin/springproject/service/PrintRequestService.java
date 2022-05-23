@@ -22,9 +22,7 @@ public class PrintRequestService {
 
     public PrintRequest getPrintRequestById(PrintPK printPK) {
         Optional<PrintRequest> printRequestOptional = printRequestRepository.findById(printPK);
-        printRequestOptional.ifPresent(printRequest -> {
-            logger.info(printRequest.getCardPAN());
-        });
+        printRequestOptional.ifPresent(printRequest -> logger.info(printRequest.getCardPAN()));
         return printRequestOptional.get();
     }
 
@@ -36,9 +34,15 @@ public class PrintRequestService {
         printRequestRepository.findPrintRequestIpAddressesByPrintIdBranchCode("255").forEach(ipAddress -> logger.info("Ip address:" + ipAddress));
     }
 
-    public void saveRecord(PrintRequest printRequest) {
+    public PrintRequest saveRecord(PrintRequest printRequest) {
         PrintRequest savedPrintRequest = printRequestRepository.save(printRequest);
         logger.info("Saved record and personnel code is: " + savedPrintRequest.getPersonnelCode());
+        return savedPrintRequest;
+    }
+
+    public Iterable<PrintRequest> getAll() {
+        logger.info("Getting all PrintRequests");
+        return printRequestRepository.findAll();
     }
 
 
@@ -70,5 +74,26 @@ public class PrintRequestService {
         printRequestOptional2.ifPresent(printRequest -> logger.info("Since method is transactional," +
                 " card pan is updated on persistence level. card pan: " + printRequest.getCardPAN()));
 
+    }
+
+    @Transactional
+    public PrintRequest patch(PrintRequest printRequestToPatch) {
+        PrintRequest loadedPrintRequest = printRequestRepository.findById(printRequestToPatch.getPrintId()).get();
+        loadedPrintRequest.setPersonnelCode(printRequestToPatch.getPersonnelCode());
+        loadedPrintRequest.setCardPAN(printRequestToPatch.getCardPAN());
+        return loadedPrintRequest;
+    }
+
+    @Transactional
+    public PrintRequest update(PrintRequest printRequestToUpdate) {
+        try {
+            PrintRequest loadedPrintRequest = printRequestRepository.findById(printRequestToUpdate.getPrintId()).get();
+            loadedPrintRequest.setPersonnelCode(printRequestToUpdate.getPersonnelCode());
+            loadedPrintRequest.setCardPAN(printRequestToUpdate.getCardPAN());
+            return loadedPrintRequest;
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return printRequestRepository.save(printRequestToUpdate);
+        }
     }
 }
