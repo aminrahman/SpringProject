@@ -1,5 +1,6 @@
 package aminrahman.dotin.springproject.service;
 
+import aminrahman.dotin.springproject.controller.RecordAlreadyExistsException;
 import aminrahman.dotin.springproject.entity.PrintPK;
 import aminrahman.dotin.springproject.entity.PrintRequest;
 import aminrahman.dotin.springproject.repository.PrintRequestRepository;
@@ -31,10 +32,15 @@ public class PrintRequestService {
     }
 
     public void findIpAddresses(String branchCode) {
-        printRequestRepository.findPrintRequestIpAddressesByPrintIdBranchCode("255").forEach(ipAddress -> logger.info("Ip address:" + ipAddress));
+        printRequestRepository.findPrintRequestIpAddressesByPrintIdBranchCode(branchCode).forEach(ipAddress -> logger.info("Ip address:" + ipAddress));
     }
 
     public PrintRequest saveRecord(PrintRequest printRequest) {
+        printRequestRepository.findById(printRequest.getPrintId()).ifPresent(printRequest1 -> {
+            throw new RecordAlreadyExistsException(
+                    "Record with Ip Address: "
+                    + printRequest.getPrintId().getIpAddress() + "And Branch Code: " + printRequest.getPrintId().getBranchCode() + " already exists.");
+        });
         PrintRequest savedPrintRequest = printRequestRepository.save(printRequest);
         logger.info("Saved record and personnel code is: " + savedPrintRequest.getPersonnelCode());
         return savedPrintRequest;
