@@ -1,6 +1,6 @@
 package aminrahman.dotin.springproject.service;
 
-import aminrahman.dotin.springproject.controller.RecordAlreadyExistsException;
+import aminrahman.dotin.springproject.exception.RecordAlreadyExistsException;
 import aminrahman.dotin.springproject.entity.PrintPK;
 import aminrahman.dotin.springproject.entity.PrintRequest;
 import aminrahman.dotin.springproject.repository.PrintRequestRepository;

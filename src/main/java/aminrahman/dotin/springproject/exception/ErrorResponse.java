@@ -1,4 +1,4 @@
-package aminrahman.dotin.springproject.controller;
+package aminrahman.dotin.springproject.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;

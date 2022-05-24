@@ -1,4 +1,4 @@
-package aminrahman.dotin.springproject.controller;
+package aminrahman.dotin.springproject.exception;
 
 public class RecordAlreadyExistsException extends RuntimeException{
     public RecordAlreadyExistsException(String message) {

@@ -1,4 +1,4 @@
-package aminrahman.dotin.springproject.controller;
+package aminrahman.dotin.springproject.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
