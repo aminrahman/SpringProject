@@ -39,7 +39,7 @@ public class PrintRequestService {
         printRequestRepository.findById(printRequest.getPrintId()).ifPresent(printRequest1 -> {
             throw new RecordAlreadyExistsException(
                     "Record with Ip Address: "
-                    + printRequest.getPrintId().getIpAddress() + "And Branch Code: " + printRequest.getPrintId().getBranchCode() + " already exists.");
+                    + printRequest.getPrintId().getIpAddress() + " And Branch Code: " + printRequest.getPrintId().getBranchCode() + " already exists.");
         });
         PrintRequest savedPrintRequest = printRequestRepository.save(printRequest);
         logger.info("Saved record and personnel code is: " + savedPrintRequest.getPersonnelCode());

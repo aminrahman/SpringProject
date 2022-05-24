@@ -4,7 +4,9 @@ import aminrahman.dotin.springproject.entity.ActivityLog;
 import aminrahman.dotin.springproject.entity.PrintRequest;
 import aminrahman.dotin.springproject.service.ActivityLogService;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Aspect
@@ -34,7 +35,7 @@ public class LoggingAspect {
     }
 
     @AfterReturning(value = "execution(* aminrahman.dotin.springproject.controller.*.*(..))", returning = "result")
-    public void logAfterOperation(JoinPoint joinPoint, Object result) {
+    public void logActivityAfterOperation(JoinPoint joinPoint, Object result) {
 
         logger.debug("Logging operation: " + joinPoint.getSignature());
 
@@ -65,5 +66,21 @@ public class LoggingAspect {
                 }
             }
         }
+    }
+
+    @Around("aminrahman.dotin.springproject.aspect.LogPointCut.logExecutionTimePointcut()")
+    public Object logExecuteTime(ProceedingJoinPoint joinPoint) throws Throwable {
+        long startTime = System.currentTimeMillis();
+        Object result;
+        try {
+            result = joinPoint.proceed();
+        } catch (Throwable e) {
+            throw e;
+        }
+
+        long executionTime = System.currentTimeMillis() - startTime;
+        logger.info("Time taken by method is " + executionTime + "ms.");
+        return result;
+
     }
 }
