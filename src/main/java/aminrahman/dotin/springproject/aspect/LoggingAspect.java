@@ -34,7 +34,7 @@ public class LoggingAspect {
         this.service = service;
     }
 
-    @AfterReturning(value = "execution(* aminrahman.dotin.springproject.controller.*.*(..))", returning = "result")
+    @AfterReturning(value = "execution(* aminrahman.dotin.springproject.controller.PrintRequestController.*(..))", returning = "result")
     public void logActivityAfterOperation(JoinPoint joinPoint, Object result) {
 
         logger.debug("Logging operation: " + joinPoint.getSignature());
@@ -79,7 +79,7 @@ public class LoggingAspect {
         }
 
         long executionTime = System.currentTimeMillis() - startTime;
-        logger.info("Time taken by method is " + executionTime + "ms.");
+        logger.info("Method executed in " + executionTime + "ms.");
         return result;
 
     }
