@@ -17,10 +17,10 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<ErrorResponse> handleConstraintViolationException(ConstraintViolationException exception, HttpServletRequest request) {
-        StringBuilder errorMessages = new StringBuilder("|");
+        StringBuilder errorMessages = new StringBuilder("| ");
         for (ConstraintViolation violation :
                 exception.getConstraintViolations()) {
-            errorMessages.append(violation.getMessage()).append("|");
+            errorMessages.append(violation.getMessage()).append(" | ");
         }
         return new ResponseEntity<>(ErrorResponse.builder().message("Can't process request " + request.getRequestURI() + ". " + errorMessages).time(ZonedDateTime.now()).statusCode(HttpStatus.MULTI_STATUS).build(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
