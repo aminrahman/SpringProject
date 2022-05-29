@@ -20,12 +20,12 @@ public class PrintPK implements Serializable {
     @Pattern(regexp = "(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])\\." +
             "(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])\\." +
             "(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])\\." +
-            "(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])", message = "Only IP addresses are accepted.")
+            "(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])", message = "Only values in IP format are accepted for Ip Addresses.")
     @NotNull
     @Column(name = "C_IP_ADDRESS")
     public String ipAddress;
 
-    @Size(min = 3)
+    @Size(min = 3, message = "Minimum length for Branch Code is 3.")
     @NotNull
     @Column(name = "C_BRANCH_CODE")
     public String branchCode;
