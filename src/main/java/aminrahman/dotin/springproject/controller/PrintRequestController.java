@@ -14,8 +14,11 @@ import java.util.List;
 @RestController("/print")
 public class PrintRequestController {
 
-    @Autowired
-    private PrintRequestService service;
+    private final PrintRequestService service;
+
+    public PrintRequestController(@Autowired PrintRequestService service) {
+        this.service = service;
+    }
 
     @GetMapping("/get/{ip-address}/{branch-code}")
     @ResponseBody

@@ -17,8 +17,11 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/view")
 public class PrintRequestViewController {
 
-    @Autowired
-    private PrintRequestService service;
+    private final PrintRequestService service;
+
+    public PrintRequestViewController(@Autowired PrintRequestService service) {
+        this.service = service;
+    }
 
     @GetMapping("/all-requests")
     @ExecuteTime
