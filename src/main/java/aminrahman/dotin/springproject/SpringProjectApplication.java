@@ -1,5 +1,7 @@
 package aminrahman.dotin.springproject;
 
+import aminrahman.dotin.springproject.bean.PostProcessBean;
+import aminrahman.dotin.springproject.bean.PrototypeBean;
 import aminrahman.dotin.springproject.entity.PrintPK;
 import aminrahman.dotin.springproject.entity.PrintRequest;
 import aminrahman.dotin.springproject.service.PrintRequestService;
@@ -43,6 +45,9 @@ public class SpringProjectApplication extends SpringBootServletInitializer {
 
         logger.info("Testing transactional service method>>>>>>>>>>>>>>>");
         printRequestService.updateCardPanTransactional(PrintPK.builder().ipAddress("150.160.12.13").branchCode("3322").build(), "5859832098765432");
+
+        logger.info("Initializing a bean from PrototypeBean just to call postProcessAfterInitialization in " + PostProcessBean.class.getSimpleName());
+        applicationContext.getBean(PrototypeBean.class);
     }
 
 }
