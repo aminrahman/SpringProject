@@ -30,7 +30,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith({SpringExtension.class})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = SpringProjectApplication.class)
@@ -66,7 +65,7 @@ class PrintRequestControllerTest {
 
     @Order(2)
     @Test
-    void testGetAll() throws Exception {
+    void getAll() throws Exception {
         List<PrintRequest> printRequests = new ArrayList<>();
         printRequests.add(printRequest);
         when(service.getAll()).thenReturn(printRequests);
