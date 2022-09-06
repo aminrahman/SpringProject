@@ -7,7 +7,7 @@
 </head>
 <body>
 <c:if test="${addSuccess}">
-    <div>Successfully added Book with</div>
+    <div>Successfully added Request with</div>
     <br>
     <div>Ip Address: ${savedRequest.printId.ipAddress}</div>
     <div>Branch Code: ${savedRequest.printId.branchCode}</div>
